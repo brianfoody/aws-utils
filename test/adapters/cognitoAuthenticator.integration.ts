@@ -1,4 +1,3 @@
-import fs from "fs";
 import jwt_decode from "jwt-decode";
 import { retry } from "ts-retry-promise";
 import { makeCognitoAuthenticator } from "../../src/adapters/cognitoUserPoolAuthenticator";
@@ -115,15 +114,3 @@ describe("cognitoIdenticator", () => {
     // });
   });
 });
-
-const readFileContents = (filePath: string): Promise<string> => {
-  return new Promise((resolve, reject) => {
-    fs.readFile(filePath, "utf8", (err, data) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(data);
-      }
-    });
-  });
-};

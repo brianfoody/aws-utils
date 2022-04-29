@@ -91,7 +91,7 @@ describe("dynamoStore", () => {
     await authenticator.signOut();
   });
 
-  test("a user cannot post a track session for themselves", async () => {
+  test("a user cannot post a track session for others", async () => {
     const track = {
       userId: "a-random-user",
       trackedOn: +new Date(),

@@ -54,7 +54,7 @@ export interface Authenticator<
   signUp: (props: U) => Promise<R>;
   refresh: () => Promise<A>;
   signOut: () => Promise<void>;
-  resendCode?: ({ username }: { username: string }) => Promise<void>;
+  resendCode: ({ username }: { username: string }) => Promise<void>;
   verifySignin?: (props: VI) => Promise<A>;
   verifySignup?: (props: VU) => Promise<void>;
 }
