@@ -10,6 +10,8 @@ Built through github actions.
 
 Th first step is to create an authenticator. This allows a user to sign in and authenticate themselves. A providerId along with an access token should be returned.
 
+A Cognito user pool is your usual authenticator in AWS land but this could also be a non AWS-related service like Apple Sign In. Ultimately we just want a JWT token that identifies you.
+
 ```
 const authenticator = makeCognitoAuthenticator({
   config: {
@@ -27,7 +29,12 @@ await authenticator.authenticate({
 
 # Authoriser
 
-Once authenticated the next thing to do is authoriser yourself with AWS and get your access credentials along with an identityId if supported.
+Once authenticated the next thing to do is authorise yourself with AWS and get your access credentials along with an identityId if supported.
+
+If you have authenticated against a user pool, it will need to configured for this identity pool to get credential.
+If you have authenticated against Apple, the App ID will need to configured for this identity pool to get credentials.
+If you have authenticated against ... you get the idea
+
 
 ```
 const authoriser = makeCognitoAuthoriser({
@@ -48,7 +55,7 @@ We can now get our credentials from the authoriser.
 const authorisation = await authoriser.authorise();
 ```
 
-This will use the authenticator to refresh tokens every time authorise is called.
+You will notice we pass trhe authenticator into the authoriser. This is because the authenticated token can expire and if so, the authoriser refreshes it before requesting credentials when you authorise.
 
 If refresh fails then authorisation will fail -> SessionTimedOutException
 
@@ -75,8 +82,13 @@ Then when you call any operation on this it will ask the authorisation provider 
 
 The authoriser will ensure the user is still authenticated and refresh if not.
 
-And then the request will be sent to the AWS service with fresh credentials.
+And then the request will be sent to the AWS service with valid credentials.
 
 # Reloading in an app / website without logging in again
 
 Each authenticator is passed a storage provider which can be used to store the authorisation information needed to refresh a session, generally a user and token.
+
+I prefer this to AWS Amplify which hides the storage away from you. I've always found it nice to know what a library is doing and be able to easily customise it.
+
+For example when porting auth if you control the storage it's really easy. If amplify does, it's a pain in the ass.
+
