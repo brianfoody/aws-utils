@@ -104,5 +104,3 @@ export const makeDynamoStore = <T, K>({
     },
   };
 };
-
-
