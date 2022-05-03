@@ -158,7 +158,6 @@ export const makeCognitoAuthenticator = ({
       });
 
       await localStorage.setItem("AUTH_ID", AUTH_ID);
-      
     },
     verifySignin: async (props) => {
       const command = new RespondToAuthChallengeCommand({
