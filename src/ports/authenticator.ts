@@ -49,6 +49,7 @@ export interface Authenticator<
   VI = VerifySignInProps,
   VU = VerifySignUpProps
 > {
+  getId: () => Promise<string>;
   isLoggedIn: () => Promise<boolean>;
   signIn: (props: I) => Promise<A>;
   signUp: (props: U) => Promise<R>;

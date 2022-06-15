@@ -32,6 +32,9 @@ export const makeCognitoAuthenticator = ({
   const PROVIDER_ID = `cognito-idp.${config.region}.amazonaws.com/${config.userPoolId}`;
 
   return {
+    getId: async () => {
+      return "";
+    },
     isLoggedIn: async () => {
       const refreshToken = await retry(
         () => localStorage.getItem("REFRESH_TOKEN"),
@@ -158,7 +161,6 @@ export const makeCognitoAuthenticator = ({
       });
 
       await localStorage.setItem("AUTH_ID", AUTH_ID);
-      
     },
     verifySignin: async (props) => {
       const command = new RespondToAuthChallengeCommand({

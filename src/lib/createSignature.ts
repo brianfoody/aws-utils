@@ -1,5 +1,5 @@
 import { Credentials } from "aws-sdk/clients/cognitoidentity";
-import sigV4Client from "./sigvClient";
+import makeSig4Client from "./sigvClient";
 
 /**
  *
@@ -11,6 +11,13 @@ import sigV4Client from "./sigvClient";
   path: "/datav2",
 }
  */
+
+type Response = {
+  body: string;
+  url: string;
+  headers: Headers;
+};
+
 export const signRequest = (
   credentials: Credentials,
   req: {
@@ -21,14 +28,14 @@ export const signRequest = (
     path: string;
     queryParams: any;
   }
-) => {
-  const client = sigV4Client.newClient({
+): Response | undefined => {
+  const client = makeSig4Client({
     // Your AWS temporary access key
     accessKey: credentials.AccessKeyId!,
     // Your AWS temporary secret key
     secretKey: credentials.SecretKey!,
     // Your AWS temporary session token
-    sessionToken: credentials.SessionToken,
+    sessionToken: credentials.SessionToken!,
     // API Gateway region
     region: "eu-central-1",
     // API Gateway URL

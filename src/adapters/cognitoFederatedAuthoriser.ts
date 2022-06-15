@@ -1,3 +1,4 @@
+import { CognitoIdentityCredentials } from "@aws-sdk/credential-provider-cognito-identity";
 import { fromCognitoIdentityPool } from "@aws-sdk/credential-providers";
 import jwtDecode from "jwt-decode";
 import { Authenticator } from "../ports/authenticator";
@@ -20,28 +21,31 @@ export const makeCognitoAuthoriser = ({
 }: ProviderPorts): Authoriser => {
   let identityToken: string | undefined;
   let providerId: string | undefined;
+  let details: CognitoIdentityCredentials | undefined;
 
   return {
     authorise: async () => {
       if (
         !identityToken ||
-        (jwtDecode(identityToken) as any).exp < Date.now() / 1000
+        (jwtDecode(identityToken) as any).exp < Date.now() / 1000 ||
+        !details
       ) {
         const { success } = await authenticationProvider.refresh();
         identityToken = success.identityToken;
         providerId = success.providerId;
+        details = await fromCognitoIdentityPool({
+          identityPoolId: config.identityPoolId,
+          accountId: config.accountId,
+          logins: {
+            [providerId!]: identityToken,
+          },
+          clientConfig: {
+            region: config.region,
+          },
+        })();
       }
 
-      return fromCognitoIdentityPool({
-        identityPoolId: config.identityPoolId,
-        accountId: config.accountId,
-        logins: {
-          [providerId!]: identityToken,
-        },
-        clientConfig: {
-          region: config.region,
-        },
-      })();
+      return details;
     },
   };
 };

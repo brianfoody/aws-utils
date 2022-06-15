@@ -5,9 +5,18 @@ import encHex from "crypto-js/enc-hex";
 import HmacSHA256 from "crypto-js/hmac-sha256";
 import SHA256 from "crypto-js/sha256";
 
-const sigV4Client: any = {};
+type Config = {
+  accessKey: string;
+  secretKey: string;
+  sessionToken: string;
+  endpoint: string;
+  region: string;
+  serviceName?: string;
+  defaultAcceptType?: string;
+  defaultContentType?: string;
+};
 
-sigV4Client.newClient = function (config: any) {
+export const makeNewSigClient = (config: Config) => {
   const AWS_SHA_256 = "AWS4-HMAC-SHA256";
   const AWS4_REQUEST = "aws4_request";
   const AWS4 = "AWS4";
@@ -211,7 +220,7 @@ sigV4Client.newClient = function (config: any) {
   awsSigV4Client.endpoint = endpoint;
   awsSigV4Client.pathComponent = pathComponent;
 
-  awsSigV4Client.signRequest = function (request: any) {
+  awsSigV4Client.signRequest = (request: any) => {
     const verb = request.method.toUpperCase();
     const path = awsSigV4Client.pathComponent + request.path;
     const queryParams = { ...request.queryParams };
@@ -308,4 +317,4 @@ sigV4Client.newClient = function (config: any) {
   return awsSigV4Client;
 };
 
-export default sigV4Client;
+export default makeNewSigClient;
