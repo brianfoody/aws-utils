@@ -2,7 +2,7 @@ const { typescript } = require("projen");
 
 const project = new typescript.TypeScriptProject({
   defaultReleaseBranch: "main",
-  name: "brianfoody-aws-utils",
+  name: "brianfoody-aws-utils-v2",
   releaseToNpm: true,
   majorVersion: 1,
   tsconfig: {

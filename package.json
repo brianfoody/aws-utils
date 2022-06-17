@@ -1,5 +1,5 @@
 {
-  "name": "brianfoody-aws-utils",
+  "name": "brianfoody-aws-utils-v2",
   "scripts": {
     "build": "npx projen build",
     "bump": "npx projen bump",
