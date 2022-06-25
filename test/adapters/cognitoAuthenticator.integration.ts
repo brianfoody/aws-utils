@@ -53,9 +53,11 @@ describe("cognitoIdenticator", () => {
 
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
-    await authenticator.resendCode({
-      username,
-    });
+    if (authenticator.resendCode) {
+      await authenticator.resendCode({
+        username,
+      });
+    }
 
     await new Promise((resolve) => setTimeout(resolve, 500));
 
