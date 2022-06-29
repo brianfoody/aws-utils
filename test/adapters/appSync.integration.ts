@@ -2,9 +2,9 @@ import { retry } from "ts-retry-promise";
 import { makeAppSyncApi } from "../../src/adapters/appSyncDataApi";
 import { makeCognitoAuthoriser } from "../../src/adapters/cognitoFederatedAuthoriser";
 import { makeCognitoAuthenticator } from "../../src/adapters/cognitoUserPoolAuthenticator";
+import { DataApi } from "../../src/ports/api";
 import { Authenticator } from "../../src/ports/authenticator";
 import { Authoriser } from "../../src/ports/authoriser";
-import { DataApi } from "../../src/ports/api";
 import { LocalStorage } from "../../src/ports/storageLocal";
 import {
   adminVerifyUser,

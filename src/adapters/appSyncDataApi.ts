@@ -1,9 +1,9 @@
-import { HttpRequest } from "@aws-sdk/protocol-http";
 import { Sha256 } from "@aws-crypto/sha256-js";
+import { HttpRequest } from "@aws-sdk/protocol-http";
 import { SignatureV4 } from "@aws-sdk/signature-v4";
+import fetch from "cross-fetch";
 import { Authoriser } from "../ports";
 import { DataApi } from "../ports/api";
-import fetch from "cross-fetch";
 
 type ProviderConfig = {
   apiUrl: string;
@@ -42,7 +42,7 @@ export const makeAppSyncApi = ({
 
     const { headers, body, method } = await signer.sign(request);
 
-    return await fetch(config.apiUrl, {
+    return fetch(config.apiUrl, {
       headers,
       body,
       method,

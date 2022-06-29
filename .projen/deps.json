@@ -28,10 +28,6 @@
       "type": "build"
     },
     {
-      "name": "cross-fetch",
-      "type": "build"
-    },
-    {
       "name": "eslint-config-prettier",
       "type": "build"
     },
@@ -98,6 +94,10 @@
       "type": "build"
     },
     {
+      "name": "@aws-crypto/sha256-js",
+      "type": "runtime"
+    },
+    {
       "name": "@aws-sdk/client-cognito-identity-provider",
       "type": "runtime"
     },
@@ -122,7 +122,15 @@
       "type": "runtime"
     },
     {
+      "name": "@aws-sdk/protocol-http",
+      "type": "runtime"
+    },
+    {
       "name": "@aws-sdk/s3-request-presigner",
+      "type": "runtime"
+    },
+    {
+      "name": "@aws-sdk/signature-v4",
       "type": "runtime"
     },
     {
@@ -139,6 +147,10 @@
     },
     {
       "name": "aws-sdk",
+      "type": "runtime"
+    },
+    {
+      "name": "cross-fetch",
       "type": "runtime"
     },
     {
