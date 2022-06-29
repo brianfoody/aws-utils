@@ -24,6 +24,7 @@ export const signRequest = (
     method: "GET" | "PUT" | "POST";
     body?: any;
     headers?: Headers;
+    region?: string;
     endpoint: string;
     path: string;
     queryParams: any;
@@ -37,9 +38,9 @@ export const signRequest = (
     // Your AWS temporary session token
     sessionToken: credentials.SessionToken!,
     // API Gateway region
-    region: "eu-central-1",
+    region: req.region || "eu-central-1",
     // API Gateway URL
-    endpoint: "https://sapi.sensive.xyz",
+    endpoint: req.endpoint || "https://sapi.sensive.xyz",
   });
 
   const signedRequest = client.signRequest({
