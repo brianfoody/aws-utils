@@ -1,13 +1,14 @@
 import { retry } from "ts-retry-promise";
+import { makeAppSyncApi } from "../../src/adapters/appSyncDataApi";
 import { makeCognitoAuthoriser } from "../../src/adapters/cognitoFederatedAuthoriser";
 import { makeCognitoAuthenticator } from "../../src/adapters/cognitoUserPoolAuthenticator";
-import { makeDynamoStore } from "../../src/adapters/dynamoStore";
 import { Authenticator } from "../../src/ports/authenticator";
 import { Authoriser } from "../../src/ports/authoriser";
-import { Database } from "../../src/ports/database";
+import { DataApi } from "../../src/ports/api";
 import { LocalStorage } from "../../src/ports/storageLocal";
 import {
   adminVerifyUser,
+  APP_SYNC_API_URL,
   AWS_ACCOUNT_ID,
   AWS_IDENTITY_POOL_ID,
   AWS_REGION,
@@ -21,8 +22,7 @@ describe("dynamoStore", () => {
   let authenticator: Authenticator;
   let localStorer: LocalStorage;
   let authoriser: Authoriser;
-  let database: Database<any, any>;
-  let identityId: string = "";
+  let dataApi: DataApi;
 
   let username = "sdaasssda";
   let password = "test!234SDs@@@swss";
@@ -51,12 +51,12 @@ describe("dynamoStore", () => {
       authenticationProvider: authenticator,
     });
 
-    database = makeDynamoStore({
+    dataApi = makeAppSyncApi({
       config: {
         region: AWS_REGION!,
-        tableName: "Tracking",
+        apiUrl: APP_SYNC_API_URL,
       },
-      authoriser: authoriser,
+      authoriser,
     });
 
     try {
@@ -81,9 +81,7 @@ describe("dynamoStore", () => {
       password,
     });
 
-    const authorisation = await authoriser.authorise();
-
-    identityId = authorisation.identityId!;
+    // const authorisation = await authoriser.authorise();
   });
 
   afterAll(async () => {
@@ -91,23 +89,26 @@ describe("dynamoStore", () => {
     await authenticator.signOut();
   });
 
-  test("a user cannot post a track session for others", async () => {
-    const track = {
-      userId: "a-random-user",
-      trackedOn: +new Date(),
-    };
+  test("a user can add an item through the AppSync API", async () => {
+    const response = await dataApi.addTrack({
+      responses: [
+        {
+          emotion: "Happy",
+          score: 2,
+        },
+      ],
+    });
 
-    await expect(database.put(track)).rejects.toThrow();
+    console.log(response);
+    await expect(response).toBeDefined();
+    await expect(response.trackId).toBeDefined();
   });
 
-  test("a user can post a track session for themselves", async () => {
-    const track = {
-      userId: identityId,
-      trackedOn: +new Date(),
-    };
+  test("a user can call the AppSync API", async () => {
+    const response = await dataApi.load();
 
-    const item = await database.put(track);
+    console.log(response);
 
-    expect(item).toEqual(track);
+    await expect(response).toBeDefined();
   });
 });

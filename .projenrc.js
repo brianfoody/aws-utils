@@ -21,7 +21,7 @@ const project = new typescript.TypeScriptProject({
   scripts: {
     integration: "npx jest -c jest.integration.js --runInBand",
   },
-  devDeps: ["@types/aws-lambda", "@types/crypto-js"],
+  devDeps: ["@types/aws-lambda", "@types/crypto-js", "cross-fetch"],
   deps: [
     "@aws-sdk/credential-provider-cognito-identity",
     "@aws-sdk/credential-providers",

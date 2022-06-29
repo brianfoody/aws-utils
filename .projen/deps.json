@@ -28,6 +28,10 @@
       "type": "build"
     },
     {
+      "name": "cross-fetch",
+      "type": "build"
+    },
+    {
       "name": "eslint-config-prettier",
       "type": "build"
     },
