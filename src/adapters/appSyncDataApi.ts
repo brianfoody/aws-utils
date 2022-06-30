@@ -64,18 +64,49 @@ export const makeAppSyncApi = ({
         },
       });
 
+      console.log(`Add track response`);
+      console.log(response);
+
       return response.data.addTrack;
     },
-    addNote: async (_note) => {
-      return {
-        nid: "",
-      };
+    addNote: async (note) => {
+      const response = await execRequest({
+        query: `
+            mutation PostANote($input: NoteInput!) {
+                addNote(input: $input) {
+                    nid
+                }
+            }
+        `,
+        variables: {
+          input: note,
+        },
+      });
+
+      console.log(`Add note response`);
+      console.log(response);
+
+      return response.data.addTrack;
     },
-    addFeedback: async (_feedback) => {
-      return {
-        u: "",
-        on: +new Date(),
-      };
+    addFeedback: async (feedback) => {
+      const response = await execRequest({
+        query: `
+            mutation PostFeedback($input: FeedbackInput!) {
+                addFeedback(input: $input) {
+                    u
+                    createdOn
+                }
+            }
+        `,
+        variables: {
+          input: feedback,
+        },
+      });
+
+      console.log(`addFeedback response`);
+      console.log(response);
+
+      return response.data.addFeedback;
     },
     addHealthRecords: async (_record) => {
       return {} as any;
@@ -89,21 +120,144 @@ export const makeAppSyncApi = ({
     load: async () => {
       const response = await execRequest({
         query: `
-                query MyQuery {
-                    getTracks {
-                        userId
-                        trackedOn
-                        trackId
-                        responses {
-                            emotion
-                            score
-                        }
-                    }
+          query LoadData {
+              load {
+                user {
+                  id
+                  phoneNumber
+                  sub
+                  givenName
+                  familyName
+                  nickname
+                  email
                 }
-            `,
+                feedback {
+                  createdOn
+                  f
+                  t
+                  c
+                }
+                settings {
+                  disableSounds
+                  autoJournalDisabled
+                  hints
+                  remind
+                  remindTime
+                  rndm
+                  rndm_min
+                  rndm_max
+                  num_e
+                  v
+                  tz
+                }
+                tracks {
+                  trackId
+                  userId
+                  trackedOn
+                  responses {
+                    emotion
+                    score
+                  }
+                }
+                notes {
+                  createdOn
+                  nid
+                  hint
+                  n
+                  t
+                  tid
+                  images
+                  i {
+                    period1
+                    period2
+                    duration
+                    type
+                  }
+                }
+                trends {
+                  weekly {
+                    score {
+                      period1
+                      period2
+                      delta
+                    }
+                    tension {
+                      period1
+                      period2
+                      delta
+                    }
+                    depression {
+                      period1
+                      period2
+                      delta
+                    }
+                    anger {
+                      period1
+                      period2
+                      delta
+                    }
+                    fatigue {
+                      period1
+                      period2
+                      delta
+                    }
+                    confusion {
+                      period1
+                      period2
+                      delta
+                    }
+                    vigour {
+                      period1
+                      period2
+                      delta
+                    }
+                  }
+                  monthly {
+                    score {
+                      period1
+                      period2
+                      delta
+                    }
+                    tension {
+                      period1
+                      period2
+                      delta
+                    }
+                    depression {
+                      period1
+                      period2
+                      delta
+                    }
+                    anger {
+                      period1
+                      period2
+                      delta
+                    }
+                    fatigue {
+                      period1
+                      period2
+                      delta
+                    }
+                    confusion {
+                      period1
+                      period2
+                      delta
+                    }
+                    vigour {
+                      period1
+                      period2
+                      delta
+                    }
+                  }
+                }
+              }
+          }
+        `,
       });
 
-      return response.data.getTracks;
+      console.log("response");
+      console.log(response);
+      return response.data.load;
     },
   };
 };

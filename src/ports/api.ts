@@ -10,13 +10,14 @@ import {
 
 export interface DataApi {
   addTrack: (
-    track: Pick<TrackModel, "responses">
+    track: Pick<TrackModel, "trackId" | "responses">
   ) => Promise<Pick<TrackModel, "trackId">>;
+  // TODO Add or update
   addNote: (
-    note: Omit<NoteModel, "u" | "nid" | "on">
+    note: Partial<Omit<NoteModel, "u" | "on">>
   ) => Promise<Pick<NoteModel, "nid">>;
   addFeedback: (
-    note: Omit<FeedbackModel, "u" | "on">
+    feedback: Omit<FeedbackModel, "u" | "on">
   ) => Promise<Pick<FeedbackModel, "u" | "on">>;
   addHealthRecords: (
     record: Omit<HealthRecordModel, "u">
@@ -25,7 +26,7 @@ export interface DataApi {
     settings: Partial<Omit<SettingsModel, "u" | "on">>
   ) => Promise<Pick<SettingsModel, "u">>;
   updateUser: (
-    settings: Omit<UserModel, "id" | "updatedAt">
+    user: Partial<Omit<UserModel, "id" | "updatedAt">>
   ) => Promise<Pick<UserModel, "id">>;
   load: () => Promise<AppData>;
 }

@@ -91,6 +91,7 @@ describe("dynamoStore", () => {
 
   test("a user can add an item through the AppSync API", async () => {
     const response = await dataApi.addTrack({
+      trackId: Math.random() + "",
       responses: [
         {
           emotion: "Happy",
@@ -99,9 +100,25 @@ describe("dynamoStore", () => {
       ],
     });
 
+    console.log("write response");
     console.log(response);
     await expect(response).toBeDefined();
-    await expect(response.trackId).toBeDefined();
+    // await expect(response.trackId).toBeDefined();
+  });
+
+  test("a user can add a note through the AppSync API", async () => {
+    const response = await dataApi.addNote({
+      nid: Math.random() + "",
+      n: "This is a note",
+      t: "This is a title",
+      hint: "This is a hint",
+      images: ["myimage.jpeg"],
+    });
+
+    console.log("add note response");
+    console.log(response);
+    await expect(response).toBeDefined();
+    // await expect(response.nid).toBeDefined();
   });
 
   test("a user can call the AppSync API", async () => {
@@ -109,6 +126,6 @@ describe("dynamoStore", () => {
 
     console.log(response);
 
-    await expect(response).toBeDefined();
+    await expect(response.tracks?.length).toBeGreaterThan(0);
   });
 });
