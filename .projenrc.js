@@ -29,6 +29,7 @@ const project = new typescript.TypeScriptProject({
     "@aws-sdk/client-cognito-identity-provider",
     "@aws-sdk/client-dynamodb",
     "@aws-sdk/client-s3",
+    "@aws-sdk/eventstream-marshaller",
     "@aws-sdk/lib-dynamodb",
     "@aws-sdk/protocol-http",
     "@aws-sdk/signature-v4",

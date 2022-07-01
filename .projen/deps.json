@@ -118,6 +118,10 @@
       "type": "runtime"
     },
     {
+      "name": "@aws-sdk/eventstream-marshaller",
+      "type": "runtime"
+    },
+    {
       "name": "@aws-sdk/lib-dynamodb",
       "type": "runtime"
     },

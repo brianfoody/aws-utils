@@ -52,6 +52,7 @@
     "@aws-sdk/client-s3": "^3.118.0",
     "@aws-sdk/credential-provider-cognito-identity": "^3.118.0",
     "@aws-sdk/credential-providers": "^3.118.0",
+    "@aws-sdk/eventstream-marshaller": "^3.120.0",
     "@aws-sdk/lib-dynamodb": "^3.118.0",
     "@aws-sdk/protocol-http": "^3.110.0",
     "@aws-sdk/s3-request-presigner": "^3.118.0",
