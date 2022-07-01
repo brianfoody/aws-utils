@@ -18,9 +18,7 @@ export interface DataApi {
   addFeedback: (
     feedback: Omit<FeedbackModel, "u" | "on">
   ) => Promise<Pick<FeedbackModel, "u" | "on">>;
-  addHealthRecords: (
-    record: Omit<HealthRecordModel, "u">
-  ) => Promise<Pick<HealthRecordModel, "u" | "id">>;
+  addHealthRecords: (records: HealthRecordModel[]) => Promise<void>;
   addOrUpdateSettings: (
     settings: Partial<Omit<SettingsModel, "u" | "on">>
   ) => Promise<Pick<SettingsModel, "u">>;

@@ -107,9 +107,7 @@ export const makeAppSyncApi = ({
 
       return response.data.addFeedback;
     },
-    addHealthRecords: async (_record) => {
-      return {} as any;
-    },
+    addHealthRecords: async (_records) => {},
     addOrUpdateSettings: async (settings) => {
       const response = await execRequest({
         query: `
