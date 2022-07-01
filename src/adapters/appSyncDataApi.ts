@@ -42,11 +42,19 @@ export const makeAppSyncApi = ({
 
     const { headers, body, method } = await signer.sign(request);
 
-    return fetch(config.apiUrl, {
+    const result = await fetch(config.apiUrl, {
       headers,
       body,
       method,
     }).then((res) => res.json());
+
+    if (result.errors) {
+      console.log("* AppSync errors");
+      console.log(result.errors);
+      throw new Error("err");
+    }
+
+    return result;
   };
 
   return {
@@ -64,16 +72,13 @@ export const makeAppSyncApi = ({
         },
       });
 
-      console.log(`Add track response`);
-      console.log(response);
-
       return response.data.addTrack;
     },
-    addNote: async (note) => {
+    addOrUpdateNote: async (note) => {
       const response = await execRequest({
         query: `
             mutation PostANote($input: NoteInput!) {
-                addNote(input: $input) {
+                addOrUpdateNote(input: $input) {
                     nid
                 }
             }
@@ -83,10 +88,7 @@ export const makeAppSyncApi = ({
         },
       });
 
-      console.log(`Add note response`);
-      console.log(response);
-
-      return response.data.addTrack;
+      return response.data.addNote;
     },
     addFeedback: async (feedback) => {
       const response = await execRequest({
@@ -103,19 +105,42 @@ export const makeAppSyncApi = ({
         },
       });
 
-      console.log(`addFeedback response`);
-      console.log(response);
-
       return response.data.addFeedback;
     },
     addHealthRecords: async (_record) => {
       return {} as any;
     },
-    updateSettings: async (_settings) => {
-      return { u: "" };
+    addOrUpdateSettings: async (settings) => {
+      const response = await execRequest({
+        query: `
+            mutation UpdateSettings($input: SettingsInput!) {
+                addOrUpdateSettings(input: $input) {
+                    u
+                }
+            }
+        `,
+        variables: {
+          input: settings,
+        },
+      });
+
+      return response.data.updateSettings;
     },
-    updateUser: async (_user) => {
-      return { id: "" };
+    addOrUpdateUser: async (user) => {
+      const response = await execRequest({
+        query: `
+            mutation UpdateUser($input: UserInput!) {
+                addOrUpdateUser(input: $input) {
+                    id
+                }
+            }
+        `,
+        variables: {
+          input: user,
+        },
+      });
+
+      return response.data.updateUser;
     },
     load: async () => {
       const response = await execRequest({
@@ -255,8 +280,6 @@ export const makeAppSyncApi = ({
         `,
       });
 
-      console.log("response");
-      console.log(response);
       return response.data.load;
     },
   };

@@ -1,3 +1,4 @@
+export * from "./appSyncDataApi";
 export * from "./cognitoAuthManager";
 export * from "./cognitoFederatedAuthoriser";
 export * from "./cognitoUserPoolAuthenticator";

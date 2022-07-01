@@ -58,6 +58,7 @@ export interface Insight {
 export interface NoteModel {
   u: string;
   on: number;
+  createdOn: number;
   nid: string;
   hint: string;
   n: string;
