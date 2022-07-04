@@ -31,6 +31,7 @@ export const makeCognitoAuthoriser = ({
         !details
       ) {
         const { success } = await authenticationProvider.refresh();
+
         identityToken = success.identityToken;
         providerId = success.providerId;
         details = await fromCognitoIdentityPool({
