@@ -27,7 +27,7 @@ describe("appSyncEndToEndTest", () => {
           ({
             success: {
               identityToken:
-                "eyJraWQiOiJZdXlYb1kiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwcGxlaWQuYXBwbGUuY29tIiwiYXVkIjoieHl6LnNlbnNpdmUiLCJleHAiOjE2NTcwMDYzODQsImlhdCI6MTY1NjkxOTk4NCwic3ViIjoiMDAwMTY4LmVmMjYxM2RjN2IxYTQ2MTBiNjFjNGU5NGJiMjYyNjM4LjEwNTUiLCJhdF9oYXNoIjoiVFNGTHB4bGxkOHFlNHcyd1BkVnhkUSIsImVtYWlsIjoicXl4ZmJianc4Y0Bwcml2YXRlcmVsYXkuYXBwbGVpZC5jb20iLCJlbWFpbF92ZXJpZmllZCI6InRydWUiLCJpc19wcml2YXRlX2VtYWlsIjoidHJ1ZSJ9.Ak1X9NiusYdDsDYvR-QiLUNd-KwqlJoce1hSH-YgKqc3BYDY89nlKmzd1fMvrkXxS_izNf1AjpDpGiqdV63je3zuT1luNzSyMuPZ9iEMvQkJPyCH72PuuBTdioKpyVE-nuy8tseMoqWc2K2Nqvz_C7JJcuVk1d33MzYPuVS0DsQXzjR_rhMiN6z5MPuOkRpLcu6xllOcNrhWzOn77tlqW2LXMGnHXoBkj-bvuqzcqvM-5zTy-CNnTqSHjuEKGTINrpS5N1Hr3v3Wl5rElgaFKfgqSuDZAvprAKlcyuRdIiQBhRtM4a7g5TZ87sDCWlvLrAH9sbksu4Ck1R4_ESoUnw",
+                "eyJraWQiOiJXNldjT0tCIiwiYWxnIjoiUlMyNTYifQ.eyJpc3MiOiJodHRwczovL2FwcGxlaWQuYXBwbGUuY29tIiwiYXVkIjoieHl6LnNlbnNpdmUiLCJleHAiOjE2NTcwMjMwNTEsImlhdCI6MTY1NjkzNjY1MSwic3ViIjoiMDAxNzU5LjZlNWUzYjQwOGFkOTQ3M2RhMjI2YWZlODFmOTJiZDc4LjEyMjIiLCJhdF9oYXNoIjoiYVpCbDhjLVZtU25SSThJVUtGT254dyIsImVtYWlsIjoieGduZ242amM1YUBwcml2YXRlcmVsYXkuYXBwbGVpZC5jb20iLCJlbWFpbF92ZXJpZmllZCI6InRydWUiLCJpc19wcml2YXRlX2VtYWlsIjoidHJ1ZSJ9.sWe74mpFBnpNt6Va1KsyXv2Go7e_amAxzoVW0jdAidYf4f8guGns-zY3nIcyMXiO7x-P1C6ypzneJoDi-OMuG3umxHiPq0VDoPwMityP9rPsAbm2E06Pm5aOStR_ueTrmFXLbCjgJfeBk5chd8vgcZywjXDr9hCqcmTnK4xmXnlVpNtX3xQEfnGJzg97GTi1JYoVJC6ZH3gVb3Ql6AfD9SpbWvj37X2eZ4ugntJJkUu6Zi5AogEsXNNa-Dkt9pPGCIK2Ycr9B674k3duVsoHmuu2Lxy5jdkRIyxf3eKkOYpJz7UjI6LLdeLUsCWuaUjpkZudyajI4syySVmYjQxZoA",
               providerId: "appleid.apple.com",
             },
           } as any),
@@ -40,11 +40,6 @@ describe("appSyncEndToEndTest", () => {
         apiUrl: APP_SYNC_API_URL,
       },
       authoriser,
-      logger: {
-        captureException: async (_err, meta) => {
-          console.log(meta?.contexts.errors);
-        },
-      },
     });
 
     // try {

@@ -13,15 +13,11 @@ type ProviderConfig = {
 type ProviderPorts = {
   config: ProviderConfig;
   authoriser: Authoriser;
-  logger: {
-    captureException: (error: any, meta?: { contexts: any }) => void;
-  };
 };
 
 export const makeAppSyncApi = ({
   authoriser,
   config,
-  logger,
 }: ProviderPorts): DataApi => {
   const url = new URL(config.apiUrl);
 
@@ -53,12 +49,9 @@ export const makeAppSyncApi = ({
     }).then((res) => res.json());
 
     if (result.errors) {
-      logger.captureException("AppSync Errors", {
-        contexts: {
-          errors: result.errors,
-        },
-      });
-      throw new Error("AppSync Errors");
+      const errString = JSON.stringify(result.errors, null, 2);
+      console.log(errString);
+      throw new Error(`AppSync Errors ${errString}`);
     }
 
     return result;
