@@ -14,7 +14,7 @@ type ProviderPorts = {
   config: ProviderConfig;
   authoriser: Authoriser;
   logger: {
-    captureException: (error: any, meta?: { contexts: any }) => Promise<void>;
+    captureException: (error: any, meta?: { contexts: any }) => void;
   };
 };
 

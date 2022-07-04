@@ -57,6 +57,11 @@ describe("appSyncEndToEndTest", () => {
         apiUrl: APP_SYNC_API_URL,
       },
       authoriser,
+      logger: {
+        captureException: async (err, meta) => {
+          console.log(err as string, meta);
+        },
+      },
     });
 
     try {
