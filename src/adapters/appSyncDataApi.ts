@@ -187,6 +187,7 @@ export const makeAppSyncApi = ({
                   nid
                   hint
                   n
+                  intention
                   t
                   tid
                   images

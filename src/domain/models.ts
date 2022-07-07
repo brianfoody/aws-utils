@@ -61,6 +61,7 @@ export interface NoteModel {
   createdOn: number;
   nid: string;
   hint: string;
+  intention?: boolean;
   n: string;
   t: string; // title
   tid?: string;
