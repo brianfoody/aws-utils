@@ -27,7 +27,7 @@ describe("appSyncEndToEndTest", () => {
           ({
             success: {
               identityToken:
-                "eyJraWQiOiJXNldjT0tCIiwiYWxnIjoiUlMyNTYifQ.eyJpc3MiOiJodHRwczovL2FwcGxlaWQuYXBwbGUuY29tIiwiYXVkIjoieHl6LnNlbnNpdmUiLCJleHAiOjE2NTcwMjMwNTEsImlhdCI6MTY1NjkzNjY1MSwic3ViIjoiMDAxNzU5LjZlNWUzYjQwOGFkOTQ3M2RhMjI2YWZlODFmOTJiZDc4LjEyMjIiLCJhdF9oYXNoIjoiYVpCbDhjLVZtU25SSThJVUtGT254dyIsImVtYWlsIjoieGduZ242amM1YUBwcml2YXRlcmVsYXkuYXBwbGVpZC5jb20iLCJlbWFpbF92ZXJpZmllZCI6InRydWUiLCJpc19wcml2YXRlX2VtYWlsIjoidHJ1ZSJ9.sWe74mpFBnpNt6Va1KsyXv2Go7e_amAxzoVW0jdAidYf4f8guGns-zY3nIcyMXiO7x-P1C6ypzneJoDi-OMuG3umxHiPq0VDoPwMityP9rPsAbm2E06Pm5aOStR_ueTrmFXLbCjgJfeBk5chd8vgcZywjXDr9hCqcmTnK4xmXnlVpNtX3xQEfnGJzg97GTi1JYoVJC6ZH3gVb3Ql6AfD9SpbWvj37X2eZ4ugntJJkUu6Zi5AogEsXNNa-Dkt9pPGCIK2Ycr9B674k3duVsoHmuu2Lxy5jdkRIyxf3eKkOYpJz7UjI6LLdeLUsCWuaUjpkZudyajI4syySVmYjQxZoA",
+                "eyJraWQiOiJmaDZCczhDIiwiYWxnIjoiUlMyNTYifQ.eyJpc3MiOiJodHRwczovL2FwcGxlaWQuYXBwbGUuY29tIiwiYXVkIjoieHl6LnNlbnNpdmUiLCJleHAiOjE2NTc3Nzc4MzcsImlhdCI6MTY1NzY5MTQzNywic3ViIjoiMDAxNzU5LjZlNWUzYjQwOGFkOTQ3M2RhMjI2YWZlODFmOTJiZDc4LjEyMjIiLCJhdF9oYXNoIjoiSVpLOFdUTXBoRmhKZXlOM2l2WjRCUSIsImVtYWlsIjoieGduZ242amM1YUBwcml2YXRlcmVsYXkuYXBwbGVpZC5jb20iLCJlbWFpbF92ZXJpZmllZCI6InRydWUiLCJpc19wcml2YXRlX2VtYWlsIjoidHJ1ZSJ9.Fpq4xbZHaaCMgaoewXF4TOO8uqzrE6l0Ul6D01cBMes37bLV7mlGNnIJLedqWcsk-Q-QE_ScIwuXdW5DIHOCLrrr4sunKagUgAH6_p3YbZb_4gGjPbITjevzqUUk-LFqJFwIDPeoSCeUKI9hFC2RYgWtcHG4cVFdiGOlVUkJ1QwJEoMFf3sPqLF8tIYicLF8lwPPK2VzrFJeWNvmAafpjGq_TTNhNtDkfdGKP8enePVFTMlJW6KSapMCBZlkkBiG9rCYXb6vRaFkPn0Sruu8AnX088juSAK7Xg9_cWM0nJG9HfquyWrKmj8McR6p4uzIrUHkAYrqnjLlFarlQFKObg",
               providerId: "appleid.apple.com",
             },
           } as any),
@@ -139,7 +139,8 @@ describe("appSyncEndToEndTest", () => {
   test("a user can fetch all data", async () => {
     const response = await dataApi.load();
 
-    console.log(response);
+    console.log(JSON.stringify("response"));
+    console.log(JSON.stringify(response));
 
     // await expect(response.tracks?.length).toBeGreaterThan(0);
     await expect(response.notes?.length).toBeGreaterThan(0);
