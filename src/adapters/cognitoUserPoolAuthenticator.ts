@@ -129,11 +129,28 @@ export const makeCognitoAuthenticator = ({
           },
         });
 
+        let revoked = false;
         console.info(`Sending InitiateAuth (REFRESH_TOKEN_AUTH)`);
-        const response = await retry(() => client.send(command), {
-          retries: 3,
-          delay: 1000,
-        });
+        const response = await retry(
+          () =>
+            client.send(command).catch((err) => {
+              if (err.toString().includes("revoked")) {
+                revoked = true;
+                return undefined;
+              } else {
+                throw err;
+              }
+            }),
+          {
+            retries: 3,
+            delay: 1000,
+          }
+        );
+
+        if (revoked || !response) {
+          await localStorage.deleteItem("REFRESH_TOKEN");
+          throw new Error("Refresh token has been revoked");
+        }
 
         return {
           challenge: false,
