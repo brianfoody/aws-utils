@@ -63,6 +63,7 @@ export interface NoteModel {
   hint: string;
   intention?: boolean;
   n: string;
+  html?: string;
   t: string; // title
   tid?: string;
   images?: string[];
