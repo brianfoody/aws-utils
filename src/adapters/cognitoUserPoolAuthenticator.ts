@@ -96,8 +96,8 @@ export const makeCognitoAuthenticator = ({
       const refreshToken = response.AuthenticationResult!.RefreshToken;
       if (refreshToken) {
         try {
-          await localStorage.setItem("REFRESH_TOKEN", refreshToken);
           await localStorage.setItem("AUTH_ID", AUTH_ID);
+          await localStorage.setItem("REFRESH_TOKEN", refreshToken);
         } catch (error) {
           console.error(error);
           throw error;
@@ -131,6 +131,7 @@ export const makeCognitoAuthenticator = ({
 
         let revoked = false;
         console.info(`Sending InitiateAuth (REFRESH_TOKEN_AUTH)`);
+
         const response = await retry(
           () =>
             client.send(command).catch((err) => {
@@ -201,8 +202,8 @@ export const makeCognitoAuthenticator = ({
           "REFRESH_TOKEN",
           resp.AuthenticationResult?.RefreshToken
         );
-        await localStorage.setItem("AUTH_ID", AUTH_ID);
       }
+      await localStorage.setItem("AUTH_ID", AUTH_ID);
 
       return {
         challenge: false,

@@ -119,6 +119,7 @@ export interface SettingsModel {
   rndm?: boolean;
   rndm_min?: number;
   rndm_max?: number;
+  reviewRequestedAt?: number;
   num_e?: number;
   v?: string; // app version
   pnKey?: string; // push notification key

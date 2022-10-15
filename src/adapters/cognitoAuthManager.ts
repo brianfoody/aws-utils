@@ -77,6 +77,8 @@ export const makeCognitoAuthManager = ({
       );
     },
     signOut: async () => {
+      await localStorage.deleteItem("AUTH_ID");
+
       const refreshToken = await retry(
         () => localStorage.getItem("REFRESH_TOKEN"),
         { retries: 3 }
@@ -94,7 +96,6 @@ export const makeCognitoAuthManager = ({
       });
 
       await localStorage.deleteItem("REFRESH_TOKEN");
-      await localStorage.deleteItem("AUTH_ID");
 
       console.info(`Sending GlobalSignOutCommand`);
       await retry(() => client.send(command), {

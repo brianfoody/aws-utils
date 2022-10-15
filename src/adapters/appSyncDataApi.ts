@@ -169,6 +169,7 @@ export const makeAppSyncApi = ({
                   rndm
                   rndm_min
                   rndm_max
+                  reviewRequestedAt
                   num_e
                   v
                   tz
