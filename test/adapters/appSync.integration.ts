@@ -1,4 +1,4 @@
-import { retry } from "ts-retry-promise";
+// import { retry } from "ts-retry-promise";
 import { makeAppSyncApi } from "../../src/adapters/appSyncDataApi";
 import { makeCognitoAuthoriser } from "../../src/adapters/cognitoFederatedAuthoriser";
 import { makeCognitoAuthenticator } from "../../src/adapters/cognitoUserPoolAuthenticator";
@@ -14,7 +14,7 @@ import {
   AWS_REGION,
   AWS_USER_POOL_ID,
   AWS_USER_POOL_WEB_CLIENT_ID,
-  deleteUser,
+  // deleteUser,
   testLocalStorer,
 } from "../testUtils";
 
@@ -57,21 +57,16 @@ describe("appSyncEndToEndTest", () => {
         apiUrl: APP_SYNC_API_URL,
       },
       authoriser,
-      logger: {
-        captureException: async (err, meta) => {
-          console.log(err as string, meta);
-        },
-      },
     });
 
-    try {
-      await retry(() => deleteUser(phoneNumber), {
-        retries: 5,
-        timeout: 5000,
-      });
-    } catch (err) {
-      console.log(err);
-    }
+    // try {
+    //   await retry(() => deleteUser(phoneNumber), {
+    //     retries: 5,
+    //     timeout: 5000,
+    //   });
+    // } catch (err) {
+    //   console.log(err);
+    // }
 
     await authenticator.signUp({
       username,
@@ -111,7 +106,7 @@ describe("appSyncEndToEndTest", () => {
   });
 
   test("a user can add and update a note", async () => {
-    const response = await dataApi.addOrUpdateNote({
+    await dataApi.addOrUpdateNote({
       createdOn: +new Date(),
       nid: Math.random() + "",
       n: "This is a note",
@@ -140,6 +135,7 @@ describe("appSyncEndToEndTest", () => {
     await dataApi.addOrUpdateSettings({
       disableSounds: true,
       num_e: 28,
+      reviewRequestedAt: +new Date(),
     });
 
     // Just no errors is good
@@ -169,5 +165,6 @@ describe("appSyncEndToEndTest", () => {
     await expect(response.feedback?.length).toBeGreaterThan(0);
     await expect(response.settings?.disableSounds).toBeTruthy();
     await expect(response.settings?.num_e).toBeTruthy();
+    await expect(response.settings?.reviewRequestedAt).toBeDefined();
   });
 });
